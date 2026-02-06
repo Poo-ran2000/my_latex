@@ -3,4 +3,6 @@
 *.fls
 *.log
 *.pdf
-*.synctex.gz  
+*.synctex.gz
+/extra
+/build
