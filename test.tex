@@ -8,6 +8,10 @@
 \usepackage{enumitem}
 \usepackage{graphicx}
 \usepackage{parskip}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes, patterns, calc, angles, quotes}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 
 \geometry{a4paper, margin=1in}
 
@@ -143,6 +147,150 @@
 		\item Find the per kg cost of each item. (2)
 		\item If a man buys 15 kg of potatoes and 10 kg of onions how much should he pay for it? (2)
 	\end{enumerate}
+\end{enumerate}
+
+\clearpage
+\section*{Additional Practice: Illustrated Questions}
+\begin{enumerate}[wide, label=\textbf{Q\arabic*.}]
+	\item (Triangle geometry) In triangle $ABC$ below, $AB=7$, $AC=8$ and $\angle A=60^\circ$. Find the area of $\triangle ABC$.\\
+	\begin{center}
+		\begin{tikzpicture}[scale=1]
+			\coordinate (A) at (0,0);
+			\coordinate (B) at (3,0);
+			\coordinate (C) at (1.5,2.598); % approx for 60 deg
+			\draw (A) -- (B) -- (C) -- cycle;
+			\node[below left] at (A) {A};
+			\node[below right] at (B) {B};
+			\node[above] at (C) {C};
+			\draw pic[draw, ->, angle radius=6mm] {angle = B--A--C};
+			\node at (0.6,0.25) {$60^\circ$};
+		\end{tikzpicture}
+	\end{center}
+
+	\item (Function graph) Sketch the graph of $y=x^2-4x+3$ and state its vertex and the x-intercepts.\\
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[width=8cm,axis lines=middle, xlabel=$x$, ylabel=$y$, xmin=-1, xmax=5, ymin=-1, ymax=6]
+				\addplot[domain=-1:5,samples=200,blue,thick] {x^2-4*x+3};
+				\addplot[only marks,mark=*,red] coordinates {(1,0) (3,0)};
+				\addplot[only marks,mark=*,black] coordinates {(2,-1)};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+
+	\item (Bar chart) The scores of five students are shown. Which student scored the highest?\\
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[ybar,bar width=12pt,ytick={0,10,20,30,40,50},width=10cm,axis x line=bottom,axis y line=left,xlabel=Student, ylabel=Score,xtick=data,xticklabels={A,B,C,D,E}]
+				\addplot coordinates {(1,35) (2,42) (3,28) (4,50) (5,44)};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+
+	\item (Venn diagram) Shade the region corresponding to $A\cap(B\setminus C)$ in the diagram below.\\
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[fill=gray!10] (0,0) circle (1.2) node at (-1.2,1.2) {$A$};
+			\draw[fill=gray!5] (1.2,0) circle (1.2) node at (2.4,1.2) {$B$};
+			\draw[fill=white] (0.6,-1) circle (1.2) node at (1.8,-2.2) {$C$};
+			% label regions roughly
+		\end{tikzpicture}
+	\end{center}
+
+	\item (Coordinate geometry) Points $P(1,2)$, $Q(4,6)$ and $R(7,2)$ form a triangle. Find its area.\\
+	\begin{center}
+		\begin{tikzpicture}[scale=0.6]
+			\draw[->] (-1,0) -- (9,0) node[right] {$x$};
+			\draw[->] (0,-1) -- (0,8) node[above] {$y$};
+			\foreach \x in {1,2,...,8} \draw (\x,0.1) -- (\x,-0.1);
+			\foreach \y in {1,2,...,7} \draw (0.1,\y) -- (-0.1,\y);
+			\coordinate (P) at (1,2);
+			\coordinate (Q) at (4,6);
+			\coordinate (R) at (7,2);
+			\draw[thick] (P) -- (Q) -- (R) -- cycle;
+			\fill (P) circle (2pt) node[below left] {P(1,2)};
+			\fill (Q) circle (2pt) node[above] {Q(4,6)};
+			\fill (R) circle (2pt) node[below right] {R(7,2)};
+		\end{tikzpicture}
+	\end{center}
+
+	\item (Pie-like sectors) A survey shows categories with proportions 30\%, 25\%, 20\%, 15\%, 10\%. Draw a pie-like sector diagram and label the largest sector.\\
+	\begin{center}
+		\begin{tikzpicture}[scale=1]
+			\def\start{0}
+			\def\a{360*0.30}
+			\def\b{360*0.25}
+			\def\c{360*0.20}
+			\def\d{360*0.15}
+			\def\e{360*0.10}
+			\fill[blue!50] (0,0) -- (\start:2) arc (\start:\start+\a:2) -- cycle;
+			\fill[red!50] (0,0) -- (\start+\a:2) arc (\start+\a:\start+\a+\b:2) -- cycle;
+			\fill[green!50] (0,0) -- (\start+\a+\b:2) arc (\start+\a+\b:\start+\a+\b+\c:2) -- cycle;
+			\fill[yellow!60] (0,0) -- (\start+\a+\b+\c:2) arc (\start+\a+\b+\c:\start+\a+\b+\c+\d:2) -- cycle;
+			\fill[purple!50] (0,0) -- (\start+\a+\b+\c+\d:2) arc (\start+\a+\b+\c+\d:360:2) -- cycle;
+			\node at (1.2,0.2) {30\%};
+			\node at (-0.2,1.4) {25\%};
+			\node at (-1.2,0.6) {20\%};
+			\node at (-0.7,-1.2) {15\%};
+			\node at (1.2,-0.9) {10\%};
+		\end{tikzpicture}
+	\end{center}
+
+	\item (Network graph) In the graph below, edges have weights. Find the shortest path from $S$ to $T$.\\
+	\begin{center}
+		\begin{tikzpicture}[node distance=2cm, every node/.style={circle,draw}]
+			\node (S) {S};
+			\node (A) [right=of S] {A};
+			\node (B) [below=of A] {B};
+			\node (T) [right=of A] {T};
+			\draw (S) -- node[above] {4} (A) -- node[above] {3} (T);
+			\draw (S) -- node[left] {2} (B) -- node[right] {4} (T);
+			\draw (A) -- node[right] {1} (B);
+		\end{tikzpicture}
+	\end{center}
+
+	\item (Histogram) The frequency of values is shown; estimate the mean approximately from the chart.\\
+	\begin{center}
+		\begin{tikzpicture}
+			\begin{axis}[ybar,bar width=18pt,ytick align=outside,ytick={0,5,10,15},width=10cm,axis x line=bottom,axis y line=left,xlabel=Value, ylabel=Frequency,xtick=data,xticklabels={10-20,20-30,30-40,40-50}]
+				\addplot coordinates {(1,4) (2,9) (3,12) (4,6)};
+			\end{axis}
+		\end{tikzpicture}
+	\end{center}
+
+	\item (Trigonometry on unit circle) Mark an angle $\theta=50^\circ$ and show $\sin\theta$ and $\cos\theta$ on the diagram.\\
+	\begin{center}
+		\begin{tikzpicture}[scale=1]
+			\draw (0,0) circle (1);
+			\draw[->] (-1.2,0) -- (1.4,0) node[right] {$x$};
+			\draw[->] (0,-1.2) -- (0,1.4) node[above] {$y$};
+			\coordinate (P) at ({cos(50)},{sin(50)});
+			\draw[thick,red] (0,0) -- (P) node[midway,above right] {$1$};
+			\draw[dashed] (P) -- ({cos(50)},0) node[midway,below] {$\cos\theta$};
+			\draw[dashed] (P) -- (0,{sin(50)}) node[midway,left] {$\sin\theta$};
+			\node at (0.9,0.2) {$\theta$};
+		\end{tikzpicture}
+	\end{center}
+
+	\item (Flowchart/complex diagram) Study the flow and answer which decision leads to output Z.\\
+	\begin{center}
+\begin{tikzpicture}[node distance=8mm, every node/.style={rectangle,draw,rounded corners,align=center}]
+  \node (start) {Start};
+  \node (inp) [below=of start] {Input $N$};
+  \node (init) [below=of inp] {$i=1$};
+  \node (dec) [below=of init] {Is $i\le N$?};
+  \node (out) [below=of dec] {Output $i$};
+  \node (inc) [below=of out] {$i=i+2$};
+  \node (end) [below=of inc] {End};
+  \draw[->] (start) -- (inp);
+  \draw[->] (inp) -- (init);
+  \draw[->] (init) -- (dec);
+  \draw[->] (dec) -- node[right]{Yes} (out);
+  \draw[->] (out) -- (inc);
+  \draw[->] (inc) -- (dec);
+  \draw[->] (dec) -- node[left]{No} (end);
+\end{tikzpicture}
+\end{center}
 \end{enumerate}
 
 \vfill
